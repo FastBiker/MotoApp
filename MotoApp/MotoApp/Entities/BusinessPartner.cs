@@ -1,6 +1,6 @@
 ﻿namespace MotoApp.Entities
 {
-    public class Employee : EntitiyBase
+    public class BusinessPartner : EntitiyBase
     {
         public string? FirstName { get; set; }
 
