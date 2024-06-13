@@ -1,51 +1,65 @@
 ﻿using MotoApp.Data;
 using MotoApp.Entities;
 using MotoApp.Repositories;
+using MotoApp.Repositories.Extensions;
 
 var employeeRepository = new SqlRepository<Employee>(new MotoAppDbContext());
 AddEmployees(employeeRepository);
 WriteAllToConsole(employeeRepository);
 
 
+//static void AddEmployees(IRepository<BusinessPartner> businessPartnerRepository)
+//{
+//    var businessPartners = new[]
+//    {
+//        new BusinessPartner { FirstName = "Adam" },
+//        new BusinessPartner { FirstName = "Piotr" },
+//        new BusinessPartner { FirstName = "Zuzia" }
+//    };
+
+//    businessPartnerRepository.AddBatch(businessPartners);
+//    AddBatch(businessPartnerRepository, businessPartners);
+//    employeeRepository.Add(new Employee { FirstName = "Adam" });
+//    employeeRepository.Add(new Employee { FirstName = "Piotr" });
+//    employeeRepository.Add(new Employee { FirstName = "Zuzia" });
+//    employeeRepository.Save();
+//}
+
 static void AddEmployees(IRepository<Employee> employeeRepository)
 {
     var employees = new[]
     {
-        new Employee { FirstName = "Adam" },
-        new Employee { FirstName = "Piotr" },
-        new Employee { FirstName = "Zuzia" }
+        new Employee { FirstName = "Kleofas" },
+        new Employee { FirstName = "Hieronim" },
+        new Employee { FirstName = "Teofil" }
     };
 
-    AddBatch(employeeRepository, employees);
-    //employeeRepository.Add(new Employee { FirstName = "Adam" });
-    //employeeRepository.Add(new Employee { FirstName = "Piotr" });
-    //employeeRepository.Add(new Employee { FirstName = "Zuzia" });
-    //employeeRepository.Save();
-}
+    employeeRepository.AddBatch(employees);
+    //AddBatch(businessPartnerRepository, businessPartners);
+    //}
+    //static void AddBatch<T>(IRepository<T> repository, T[] items) 
+    //    where T : class, IEntity
+    //{
+    //    foreach (var item in items)
+    //    {
+    //        repository.Add(item);
+    //    }
 
-static void AddBusinessPartner(IRepository<BusinessPartner> businessPartnerRepository)
-{
-    var businessPartners = new[]
-    {
-        new BusinessPartner { FirstName = "Kleofas" },
-        new BusinessPartner { FirstName = "Hieronim" },
-        new BusinessPartner { FirstName = "Teofil" }
-    };
-
-    AddBatch(businessPartnerRepository, businessPartners);
-}
-static void AddBatch<T>(IRepository<T> repository, T[] items) 
-    where T : class, IEntity
-{
-    foreach (var item in items)
-    {
-        repository.Add(item);
+    //    repository.Save();
     }
 
-    repository.Save();
-}
+    //static void AddBatch<T>(IRepository<T> repository, T[] items)
+    //            where T : class, IEntity
+    //{
+    //    foreach (var item in items)
+    //    {
+    //        repository.Add(item);
+    //    }
 
-static void WriteAllToConsole(IReadRepository<IEntity> repository)
+    //    repository.Save();
+    //}
+
+    static void WriteAllToConsole(IReadRepository<IEntity> repository)
 {
     var items = repository.GetAll();
     foreach (var item in items)
