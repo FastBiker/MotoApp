@@ -3,14 +3,14 @@ using MotoApp.Entities;
 
 namespace MotoApp.Repositories;
 
-public delegate void ItemAdded(object item);
+public delegate void ItemAdded<in T>(T item);
 public class SqlRepository<T> : IRepository<T> where T : class, IEntity, new()
 {
-    private readonly DbSet<T> _dbSet;
+    private readonly DbSet<T> _dbSet;   
     private readonly DbContext _dbContext;
-    private readonly ItemAdded? _itemAddedCallBack;
+    private readonly ItemAdded<T>? _itemAddedCallBack;
 
-    public SqlRepository(DbContext dbContext, ItemAdded? itemAddedCallBack = null)
+    public SqlRepository(DbContext dbContext, ItemAdded<T>? itemAddedCallBack = null)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<T>();
