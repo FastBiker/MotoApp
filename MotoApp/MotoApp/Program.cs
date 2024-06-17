@@ -4,10 +4,17 @@ using MotoApp.Repositories;
 using MotoApp.Repositories.Extensions;
 
 var employeeRepository = new SqlRepository<Employee>(new MotoAppDbContext(), EmployeeAdded);
-AddEmployees(employeeRepository);
-WriteAllToConsole(employeeRepository);
+employeeRepository.ItemAdded += EmployeeRepositoryOnItemAdded;
 
-static void EmployeeAdded(object item) 
+static void EmployeeRepositoryOnItemAdded(object? sender, Employee e)
+{
+    Console.WriteLine($"Employee added ==> {e.FirstName} from {sender?.GetType().Name}");
+}
+
+    AddEmployees(employeeRepository);
+    WriteAllToConsole(employeeRepository);
+
+static void EmployeeAdded(object item)
 {
     var employee = (Employee)item;
     Console.WriteLine($"{employee.FirstName} added");
@@ -52,20 +59,20 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
     //    }
 
     //    repository.Save();
-    }
+}
 
-    //static void AddBatch<T>(IRepository<T> repository, T[] items)
-    //            where T : class, IEntity
-    //{
-    //    foreach (var item in items)
-    //    {
-    //        repository.Add(item);
-    //    }
+//static void AddBatch<T>(IRepository<T> repository, T[] items)
+//            where T : class, IEntity
+//{
+//    foreach (var item in items)
+//    {
+//        repository.Add(item);
+//    }
 
-    //    repository.Save();
-    //}
+//    repository.Save();
+//}
 
-    static void WriteAllToConsole(IReadRepository<IEntity> repository)
+static void WriteAllToConsole(IReadRepository<IEntity> repository)
 {
     var items = repository.GetAll();
     foreach (var item in items)
