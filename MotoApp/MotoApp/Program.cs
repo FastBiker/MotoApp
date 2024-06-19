@@ -1,24 +1,37 @@
-﻿using MotoApp.Data;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MotoApp;
 using MotoApp.Entities;
 using MotoApp.Repositories;
-using MotoApp.Repositories.Extensions;
 
-var employeeRepository = new SqlRepository<Employee>(new MotoAppDbContext(), EmployeeAdded);
-employeeRepository.ItemAdded += EmployeeRepositoryOnItemAdded;
+var sercices = new ServiceCollection();
+sercices.AddSingleton<IApp, App>();
+sercices.AddSingleton<IRepository<Employee>, ListRepository<Employee>>();
 
-static void EmployeeRepositoryOnItemAdded(object? sender, Employee e)
-{
-    Console.WriteLine($"Employee added ==> {e.FirstName} from {sender?.GetType().Name}");
-}
+var serviceProvider = sercices.BuildServiceProvider();
+var app = serviceProvider.GetService<IApp>()!;
+app.Run();
 
-    AddEmployees(employeeRepository);
-    WriteAllToConsole(employeeRepository);
+//using MotoApp.Data;
+//using MotoApp.Entities;
+//using MotoApp.Repositories;
+//using MotoApp.Repositories.Extensions;
 
-static void EmployeeAdded(object item)
-{
-    var employee = (Employee)item;
-    Console.WriteLine($"{employee.FirstName} added");
-}
+//var employeeRepository = new SqlRepository<Employee>(new MotoAppDbContext(), EmployeeAdded);
+//employeeRepository.ItemAdded += EmployeeRepositoryOnItemAdded;
+
+//static void EmployeeRepositoryOnItemAdded(object? sender, Employee e)
+//{
+//    Console.WriteLine($"Employee added ==> {e.FirstName} from {sender?.GetType().Name}");
+//}
+
+//    AddEmployees(employeeRepository);
+//    WriteAllToConsole(employeeRepository);
+
+//static void EmployeeAdded(object item)
+//{
+//    var employee = (Employee)item;
+//    Console.WriteLine($"{employee.FirstName} added");
+//}
 
 
 //static void AddEmployees(IRepository<BusinessPartner> businessPartnerRepository)
@@ -38,16 +51,16 @@ static void EmployeeAdded(object item)
 //    employeeRepository.Save();
 //}
 
-static void AddEmployees(IRepository<Employee> employeeRepository)
-{
-    var employees = new[]
-    {
-        new Employee { FirstName = "Kleofas" },
-        new Employee { FirstName = "Hieronim" },
-        new Employee { FirstName = "Teofil" }
-    };
+//static void AddEmployees(IRepository<Employee> employeeRepository)
+//{
+//    var employees = new[]
+//    {
+//        new Employee { FirstName = "Kleofas" },
+//        new Employee { FirstName = "Hieronim" },
+//        new Employee { FirstName = "Teofil" }
+//    };
 
-    employeeRepository.AddBatch(employees);
+//    employeeRepository.AddBatch(employees);
     //AddBatch(businessPartnerRepository, businessPartners);
     //}
     //static void AddBatch<T>(IRepository<T> repository, T[] items) 
@@ -59,7 +72,7 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
     //    }
 
     //    repository.Save();
-}
+//}
 
 //static void AddBatch<T>(IRepository<T> repository, T[] items)
 //            where T : class, IEntity
@@ -72,11 +85,11 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
 //    repository.Save();
 //}
 
-static void WriteAllToConsole(IReadRepository<IEntity> repository)
-{
-    var items = repository.GetAll();
-    foreach (var item in items)
-    {
-        Console.WriteLine(item);
-    }
-}
+//static void WriteAllToConsole(IReadRepository<IEntity> repository)
+//{
+//    var items = repository.GetAll();
+//    foreach (var item in items)
+//    {
+//        Console.WriteLine(item);
+//    }
+//}
