@@ -58,6 +58,7 @@ public class App : IApp
         {
             Console.WriteLine(car);
         }
+
     }
 
     public static List<Car> GenerateSampleCars()
@@ -67,11 +68,91 @@ public class App : IApp
             new Car {
             Id = 680,
             Name = "Fiat 125p",
-            Color = "yellow",
+            Color = "yellow/creamy",
             StandardCost = 1059.31M,
             ListPrice = 1431.50M,
             Type = "sedan"
-            }
+            },
+            new Car {
+            Id = 1,
+            Name = "Land Rover Ninety",
+            Color = "yellow/white",
+            StandardCost = 62256.12M,
+            ListPrice = 65498.60M,
+            Type = "samochód terenowy"
+            },
+            new Car {
+            Id = 2,
+            Name = "Jeep Wrangler",
+            Color = "black",
+            StandardCost = 63308.93M,
+            ListPrice = 52350.33M,
+            Type = "samochód terenowy"
+            },
+            new Car {
+            Id = 3,
+            Name = "Jeep Wrangler",
+            Color = "red",
+            StandardCost = 63308.93M,
+            ListPrice = 39789.342M,
+            Type = "samochód terenowy"
+            },
+            new Car {
+            Id = 4,
+            Name = "Saab 97 II (Sonett III)",
+            Color = "blue metallic",
+            StandardCost = 60516.00M,
+            ListPrice = 64350.60M,
+            Type = "coupe"
+            },
+            new Car {
+            Id = 5,
+            Name = "Ford Mustang SVO",
+            Color = "white",
+            StandardCost = 28141.00M,
+            ListPrice = 32050.60M,
+            Type = "coupe"
+            },
+            new Car {
+            Id = 6,
+            Name = "Porsche 911 turbo (III)",
+            Color = "red",
+            StandardCost = 310000.00M,
+            ListPrice = 320000.60M,
+            Type = "coupe"
+            },
+            new Car {
+            Id = 7,
+            Name = "Mitsubishi Colt (II)",
+            Color = "blue metallic",
+            StandardCost = 51260.00M,
+            ListPrice = 5200.60M,
+            Type = "hatchback"
+            },
+            new Car {
+            Id = 8,
+            Name = "Saab 9000 Turbo",
+            Color = "white",
+            StandardCost = 60516.00M,
+            ListPrice = 64350.60M,
+            Type = "liftback"
+            },
+            new Car {
+            Id = 9,
+            Name = "Lamborgini 400GT Espada",
+            Color = "white",
+            StandardCost = 605000.00M,
+            ListPrice = 603500.60M,
+            Type = "coupe"
+            },
+            new Car {
+            Id = 10,
+            Name = "Ford Sierra",
+            Color = "yellow",
+            StandardCost = 7900.00M,
+            ListPrice = 8500.60M,
+            Type = "liftback"
+            },
         };
     }
 }

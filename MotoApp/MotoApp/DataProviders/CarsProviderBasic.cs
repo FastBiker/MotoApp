@@ -27,13 +27,35 @@ public class CarsProviderBasic : ICarsProvider
         return list;
     }
 
-    public decimal GetMinimumPriceOfAllCars()
-    {
-        throw new NotImplementedException();
-    }
-
     public List<string> GetUniqueCarColor()
     {
-        throw new NotImplementedException();
+        var cars = _carsRepository.GetAll();
+        List<string> list = new ();
+
+        foreach (var car in cars)
+        {
+            if (list.Contains(car.Color))
+            {
+                list.Add(car.Color);
+            }
+        }
+
+        return list;
+    }
+
+    public decimal GetMinimumPriceOfAllCars()
+    {
+        var cars = _carsRepository.GetAll();
+        decimal ret = decimal.MaxValue;
+
+        foreach (var car in cars)
+        {
+            if (car.ListPrice < ret)
+            {
+                ret = car.ListPrice;
+            }
+        }
+
+        return ret;
     }
 }

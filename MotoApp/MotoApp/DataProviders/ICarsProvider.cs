@@ -7,4 +7,6 @@ public interface ICarsProvider
     List<string> GetUniqueCarColor();
 
     decimal GetMinimumPriceOfAllCars();
+
+
 }

@@ -14,7 +14,7 @@ public class Car : EntityBase
     public string Type { get; set; }
 
     //Calculated Properties
-    public int? NameLenght { get; set; }
+    public int? NameLength { get; set; }
 
     public decimal? TotalSales { get; set; }
 
@@ -23,12 +23,12 @@ public class Car : EntityBase
     {
         StringBuilder sb = new(1024);
 
-        sb.Append($"{Name} ID: {Id}");
-        sb.Append($" Color: {Color} Type: {(Type ?? "n/a")}");
-        sb.Append($" Cost: {StandardCost:c} Price: {ListPrice:c}" );
-        if (NameLenght.HasValue) 
+        sb.Append($"{Name} ID: {Id}\n");
+        sb.Append($" Color: {Color} Type: {(Type ?? "n/a")}\n");
+        sb.Append($" Cost: {StandardCost:c} Price: {ListPrice:c}\n" );
+        if (NameLength.HasValue) 
         {
-            sb.AppendLine($" Name Lenght: {NameLenght}");
+            sb.AppendLine($" Name Lenght: {NameLength}");
         }
         if (TotalSales.HasValue)
         {
