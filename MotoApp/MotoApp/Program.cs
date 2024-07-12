@@ -8,7 +8,7 @@ var sercices = new ServiceCollection();
 sercices.AddSingleton<IApp, App>();
 sercices.AddSingleton<IRepository<Employee>, ListRepository<Employee>>();
 sercices.AddSingleton<IRepository<Car>, ListRepository<Car>>();
-sercices.AddSingleton<ICarsProvider, CarsProviderBasic>();
+sercices.AddSingleton<ICarsProvider, CarsProvider>();
 
 var serviceProvider = sercices.BuildServiceProvider();
 var app = serviceProvider.GetService<IApp>()!;

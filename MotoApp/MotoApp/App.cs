@@ -11,8 +11,8 @@ public class App : IApp
     private readonly ICarsProvider _carsProvider;
 
     public App(
-        IRepository<Employee> employeesRepository, 
-        IRepository<Car> carsRepository, 
+        IRepository<Employee> employeesRepository,
+        IRepository<Car> carsRepository,
         ICarsProvider carsProvider)
     {
         _employeesRepository = employeesRepository;
@@ -54,7 +54,24 @@ public class App : IApp
             _carsRepository.Add(car);
         }
 
-        foreach (var car in _carsProvider.FilterCars(1000))
+        foreach (var car in _carsProvider.GetUniqueCarColor())
+        {
+            Console.WriteLine(car);
+        }
+
+        //foreach (var car in _carsProvider.FilterCars(5000))
+        //{
+        //    Console.WriteLine(car);
+        //}
+
+        Console.WriteLine(_carsProvider.GetMinimumPriceOfAllCars());
+
+        foreach (var car in _carsProvider.GetSpecificColumns())
+        {
+            Console.WriteLine(car);
+        }
+
+        foreach (var car in _carsProvider.AnonymusClass())
         {
             Console.WriteLine(car);
         }
@@ -66,7 +83,7 @@ public class App : IApp
         return new List<Car>()
         {
             new Car {
-            Id = 680,
+            Id = 1,
             Name = "Fiat 125p",
             Color = "yellow/creamy",
             StandardCost = 1059.31M,
@@ -74,7 +91,7 @@ public class App : IApp
             Type = "sedan"
             },
             new Car {
-            Id = 1,
+            Id = 2,
             Name = "Land Rover Ninety",
             Color = "yellow/white",
             StandardCost = 62256.12M,
@@ -82,7 +99,7 @@ public class App : IApp
             Type = "samochód terenowy"
             },
             new Car {
-            Id = 2,
+            Id = 3,
             Name = "Jeep Wrangler",
             Color = "black",
             StandardCost = 63308.93M,
@@ -90,7 +107,7 @@ public class App : IApp
             Type = "samochód terenowy"
             },
             new Car {
-            Id = 3,
+            Id = 4,
             Name = "Jeep Wrangler",
             Color = "red",
             StandardCost = 63308.93M,
@@ -98,7 +115,7 @@ public class App : IApp
             Type = "samochód terenowy"
             },
             new Car {
-            Id = 4,
+            Id = 5,
             Name = "Saab 97 II (Sonett III)",
             Color = "blue metallic",
             StandardCost = 60516.00M,
@@ -106,7 +123,7 @@ public class App : IApp
             Type = "coupe"
             },
             new Car {
-            Id = 5,
+            Id = 6,
             Name = "Ford Mustang SVO",
             Color = "white",
             StandardCost = 28141.00M,
@@ -114,7 +131,7 @@ public class App : IApp
             Type = "coupe"
             },
             new Car {
-            Id = 6,
+            Id = 7,
             Name = "Porsche 911 turbo (III)",
             Color = "red",
             StandardCost = 310000.00M,
@@ -122,7 +139,7 @@ public class App : IApp
             Type = "coupe"
             },
             new Car {
-            Id = 7,
+            Id = 8,
             Name = "Mitsubishi Colt (II)",
             Color = "blue metallic",
             StandardCost = 51260.00M,
@@ -130,7 +147,7 @@ public class App : IApp
             Type = "hatchback"
             },
             new Car {
-            Id = 8,
+            Id = 9,
             Name = "Saab 9000 Turbo",
             Color = "white",
             StandardCost = 60516.00M,
@@ -138,7 +155,7 @@ public class App : IApp
             Type = "liftback"
             },
             new Car {
-            Id = 9,
+            Id = 10,
             Name = "Lamborgini 400GT Espada",
             Color = "white",
             StandardCost = 605000.00M,
@@ -146,7 +163,7 @@ public class App : IApp
             Type = "coupe"
             },
             new Car {
-            Id = 10,
+            Id = 11,
             Name = "Ford Sierra",
             Color = "yellow",
             StandardCost = 7900.00M,
