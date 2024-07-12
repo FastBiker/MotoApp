@@ -65,21 +65,31 @@ public class CarsProvider : ICarsProvider
 
     public List<Car> OrderByName()
     {
-        throw new NotImplementedException();
+        var cars = _carsRepository.GetAll();
+        return cars.OrderBy(x => x.Name).ToList();
     }
 
     public List<Car> OrderByNameDescending()
     {
-        throw new NotImplementedException();
+        var cars = _carsRepository.GetAll();
+        return cars.OrderByDescending(x => x.Name).ToList();
     }
 
     public List<Car> OrderByColorAndName()
     {
-        throw new NotImplementedException();
+        var cars = _carsRepository.GetAll();
+        return cars
+            .OrderBy(x => x.Color)
+            .ThenBy(x => x.Name)
+            .ToList();
     }
 
     public List<Car> OrderByColorAndNameDesc()
     {
-        throw new NotImplementedException();
+        var cars = _carsRepository.GetAll();
+        return cars
+            .OrderByDescending(x => x.Color)
+            .ThenByDescending(x => x.Name)
+            .ToList();
     }
 }

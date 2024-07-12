@@ -71,7 +71,12 @@ public class App : IApp
             Console.WriteLine(car);
         }
 
-        foreach (var car in _carsProvider.AnonymusClass())
+        //foreach (var car in _carsProvider.AnonymusClass())
+        //{
+        //    Console.WriteLine(car);
+        //}
+
+        foreach (var car in _carsProvider.OrderByColorAndNameDesc())
         {
             Console.WriteLine(car);
         }
