@@ -65,12 +65,7 @@ public class App : IApp
         //    Console.WriteLine(car);
         //}
 
-        Console.WriteLine(_carsProvider.GetMinimumPriceOfAllCars());
-
-        foreach (var car in _carsProvider.WhereColorIs("yellow"))
-        {
-            Console.WriteLine(car);
-        }
+        Console.WriteLine(_carsProvider.SingleOrDefaultByIdOrDefault(17));
 
     }
 

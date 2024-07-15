@@ -31,4 +31,20 @@ public interface ICarsProvider
     List<Car> WhereStartsWithAndCostIsGreaterThan(string prefix, decimal cost);
 
     List<Car> WhereColorIs(string color);
+
+    // first, last, single
+
+    Car FirstByColor(string color);
+
+    Car? FirstOrDefaultByColor(string color);
+
+    Car FirstOrDefaultByColorOrDefault(string color);
+
+    Car LastByColor(string color);
+
+    Car SingleById(int id);
+
+    Car? SingleOrDefaultById(int id);
+
+    Car? SingleOrDefaultByIdOrDefault(int id);
 }
