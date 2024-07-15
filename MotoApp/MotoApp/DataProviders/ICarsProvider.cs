@@ -23,4 +23,12 @@ public interface ICarsProvider
     List<Car> OrderByColorAndName();
 
     List<Car> OrderByColorAndNameDesc();
+
+    // where
+
+    List<Car> WhereStartsWith(string prefix);
+
+    List<Car> WhereStartsWithAndCostIsGreaterThan(string prefix, decimal cost);
+
+    List<Car> WhereColorIs(string color);
 }

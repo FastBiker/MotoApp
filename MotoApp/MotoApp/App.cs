@@ -1,6 +1,7 @@
 ﻿using MotoApp.DataProviders;
 using MotoApp.Entities;
 using MotoApp.Repositories;
+using System.Drawing;
 
 namespace MotoApp;
 
@@ -66,17 +67,7 @@ public class App : IApp
 
         Console.WriteLine(_carsProvider.GetMinimumPriceOfAllCars());
 
-        foreach (var car in _carsProvider.GetSpecificColumns())
-        {
-            Console.WriteLine(car);
-        }
-
-        //foreach (var car in _carsProvider.AnonymusClass())
-        //{
-        //    Console.WriteLine(car);
-        //}
-
-        foreach (var car in _carsProvider.OrderByColorAndNameDesc())
+        foreach (var car in _carsProvider.WhereColorIs("yellow"))
         {
             Console.WriteLine(car);
         }
