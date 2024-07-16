@@ -55,7 +55,7 @@ public class App : IApp
             _carsRepository.Add(car);
         }
 
-        foreach (var car in _carsProvider.GetUniqueCarColor())
+        foreach (var car in _carsProvider.TakeCarsWhileNameStartsWith("Z"))
         {
             Console.WriteLine(car);
         }
@@ -65,7 +65,7 @@ public class App : IApp
         //    Console.WriteLine(car);
         //}
 
-        Console.WriteLine(_carsProvider.SingleOrDefaultByIdOrDefault(17));
+        //Console.WriteLine(_carsProvider.SingleOrDefaultByIdOrDefault(17));
 
     }
 

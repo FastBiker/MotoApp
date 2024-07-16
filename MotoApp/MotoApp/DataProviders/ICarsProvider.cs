@@ -47,4 +47,12 @@ public interface ICarsProvider
     Car? SingleOrDefaultById(int id);
 
     Car? SingleOrDefaultByIdOrDefault(int id);
+
+    // Take
+
+    List<Car> TakeCars(int howMany);
+
+    List<Car> TakeCars(Range range);
+
+    List<Car> TakeCarsWhileNameStartsWith(string prefix);
 }
