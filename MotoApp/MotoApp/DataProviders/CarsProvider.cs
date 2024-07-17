@@ -134,7 +134,7 @@ public class CarsProvider : ICarsProvider
     }
 
     public Car LastByColor(string color)
-    {
+    { 
         var cars = _carsRepository.GetAll();
         return cars.Last(x => x.Color == color);
     }

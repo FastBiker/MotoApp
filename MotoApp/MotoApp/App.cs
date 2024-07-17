@@ -50,22 +50,196 @@ public class App : IApp
 
         //cars
         var cars = GenerateSampleCars();
-        foreach (var car in cars)
+        foreach (var item in cars)
         {
-            _carsRepository.Add(car);
+            _carsRepository.Add(item);
         }
 
-        foreach (var car in _carsProvider.ChunkCars(3))
+        Console.WriteLine();
+        Console.WriteLine("GetUniqueCarColor");
+        Console.WriteLine("-----------------");
+        foreach (var item in _carsProvider.GetUniqueCarColor())
         {
-            Console.WriteLine(car);
+            Console.WriteLine(item);
         }
 
-        //foreach (var car in _carsProvider.FilterCars(5000))
-        //{
-        //    Console.WriteLine(car);
-        //}
+        Console.WriteLine();
+        Console.WriteLine("GetMinimumPriceOfAllCars");
+        Console.WriteLine("------------------------");
+        Console.WriteLine(_carsProvider.GetMinimumPriceOfAllCars());
 
-        //Console.WriteLine(_carsProvider.SingleOrDefaultByIdOrDefault(17));
+        Console.WriteLine();
+        Console.WriteLine("GetSpecificColumns");
+        Console.WriteLine("------------------");
+        foreach (var item in _carsProvider.GetSpecificColumns())
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("AnonymusClass");
+        Console.WriteLine("-------------");
+        Console.WriteLine(_carsProvider.AnonymusClass());
+
+        Console.WriteLine();
+        Console.WriteLine("OrderByName");
+        Console.WriteLine("-----------");
+        foreach (var item in _carsProvider.OrderByName())
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("OrderByNameDescending");
+        Console.WriteLine("---------------------");
+        foreach (var item in _carsProvider.OrderByNameDescending())
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("OrderByColorAndName");
+        Console.WriteLine("-------------------");
+        foreach (var item in _carsProvider.OrderByColorAndName())
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("OrderByColorAndNameDesc");
+        Console.WriteLine("-----------------------");
+        foreach (var item in _carsProvider.OrderByColorAndNameDesc())
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("WhereStartsWith");
+        Console.WriteLine("---------------");
+        foreach (var item in _carsProvider.WhereStartsWith("Lam"))
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("WhereStartsWithAndCostIsGreaterThan");
+        Console.WriteLine("-----------------------------------");
+        foreach (var item in _carsProvider.WhereStartsWithAndCostIsGreaterThan("F", 25000))
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("WhereColorIs Red");
+        Console.WriteLine("------------");
+        foreach (var item in _carsProvider.WhereColorIs("red"))
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("FirstByColor");
+        Console.WriteLine("------------");
+        Console.WriteLine(_carsProvider.FirstByColor("blue metallic"));
+
+        Console.WriteLine();
+        Console.WriteLine("FirstOrDefaultByColor");
+        Console.WriteLine("---------------------");
+        Console.WriteLine(_carsProvider.FirstOrDefaultByColor("green"));
+
+        Console.WriteLine();
+        Console.WriteLine("FirstOrDefaultByColorOrDefault");
+        Console.WriteLine("------------------------------");
+        Console.WriteLine(_carsProvider.FirstOrDefaultByColorOrDefault("orange"));
+
+        Console.WriteLine();
+        Console.WriteLine("LastByColor");
+        Console.WriteLine("-----------");
+        Console.WriteLine(_carsProvider.LastByColor("white"));
+
+        Console.WriteLine();
+        Console.WriteLine("SingleById");
+        Console.WriteLine("----------");
+        Console.WriteLine(_carsProvider.SingleById(9));
+
+        Console.WriteLine();
+        Console.WriteLine("SingleOrDefaultById");
+        Console.WriteLine("-------------------");
+        Console.WriteLine(_carsProvider.SingleOrDefaultById(12));
+
+        Console.WriteLine();
+        Console.WriteLine("SingleOrDefaultByIdOrDefault");
+        Console.WriteLine("----------------------------");
+        Console.WriteLine(_carsProvider.SingleOrDefaultByIdOrDefault(17));
+
+        Console.WriteLine();
+        Console.WriteLine("TakeCars");
+        Console.WriteLine("-------------------");
+        foreach (var item in _carsProvider.TakeCars(5))
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("TakeCars");
+        Console.WriteLine("--------");
+        foreach (var item in _carsProvider.TakeCars(4..9))
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("TakeCarsWhileNameStartsWith");
+        Console.WriteLine("---------------------------");
+        foreach (var item in _carsProvider.TakeCarsWhileNameStartsWith("F"))
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("SkipCars");
+        Console.WriteLine("--------");
+        foreach (var item in _carsProvider.SkipCars(8))
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("SkipCarsWhileNameStartsWith F");
+        Console.WriteLine("-----------------------------");
+        foreach (var item in _carsProvider.SkipCarsWhileNameStartsWith("F"))
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("DistinctAllColors");
+        Console.WriteLine("-----------------");
+        foreach (var item in _carsProvider.DistinctAllColors())
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("DistinctByColors");
+        Console.WriteLine("----------------");
+        foreach (var item in _carsProvider.DistinctByColors())
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("ChunkCars");
+        Console.WriteLine("---------");
+        foreach (var item in _carsProvider.ChunkCars(3))
+        {
+            Console.WriteLine("Chunk:");
+            foreach(var i in item) 
+            {
+                Console.WriteLine(i);
+            }
+            Console.WriteLine("####");
+        }
 
     }
 
