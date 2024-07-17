@@ -55,7 +55,7 @@ public class App : IApp
             _carsRepository.Add(car);
         }
 
-        foreach (var car in _carsProvider.DistinctByColors())
+        foreach (var car in _carsProvider.ChunkCars(3))
         {
             Console.WriteLine(car);
         }
