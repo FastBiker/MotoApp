@@ -55,7 +55,7 @@ public class App : IApp
             _carsRepository.Add(car);
         }
 
-        foreach (var car in _carsProvider.SkipCarsWhileNameStartsWith("S"))
+        foreach (var car in _carsProvider.DistinctByColors())
         {
             Console.WriteLine(car);
         }
