@@ -185,4 +185,22 @@ public class CarsProvider : ICarsProvider
             .TakeWhile(x => x.Name.StartsWith(prefix))
             .ToList();
     }
+
+    public List<Car> SkipCars(int howMany)
+    {
+        var cars = _carsRepository.GetAll();
+        return cars
+            .OrderBy(x => x.Name)
+            .Skip(howMany)
+            .ToList();
+    }
+
+    public List<Car> SkipCarsWhileNameStartsWith(string prefix)
+    {
+        var cars = _carsRepository.GetAll();
+        return cars
+            .OrderBy(x => x.Name)
+            .SkipWhile(x => x.Name.StartsWith(prefix))
+            .ToList();
+    }
 }
