@@ -1,12 +1,12 @@
-﻿using MotoApp.Entities;
+﻿using MotoApp.Data.Entities;
 
-namespace MotoApp.Repositories
+namespace MotoApp.Data.Repositories
 {
     public class ListRepository<T> : IRepository<T> where T : class, IEntity, new()
     {
         private readonly List<T> _items = new();
 
-        public IEnumerable<T> GetAll() 
+        public IEnumerable<T> GetAll()
         {
             return _items.ToList();
         }
@@ -22,7 +22,7 @@ namespace MotoApp.Repositories
             _items.Add(item);
         }
 
-        public void Remove(T item) 
+        public void Remove(T item)
         {
             _items.Remove(item);
         }

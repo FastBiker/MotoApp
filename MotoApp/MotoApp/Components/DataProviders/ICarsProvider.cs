@@ -1,4 +1,4 @@
-﻿namespace MotoApp.DataProviders;
+﻿namespace MotoApp.Components.DataProviders;
 
 public interface ICarsProvider
 {

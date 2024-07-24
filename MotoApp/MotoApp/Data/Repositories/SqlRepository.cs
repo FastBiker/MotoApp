@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MotoApp.Entities;
+using MotoApp.Data.Entities;
 
-namespace MotoApp.Repositories;
+namespace MotoApp.Data.Repositories;
 
 public class SqlRepository<T> : IRepository<T> where T : class, IEntity, new()
 {
-    private readonly DbSet<T> _dbSet;   
+    private readonly DbSet<T> _dbSet;
     private readonly DbContext _dbContext;
     private readonly Action<T>? _itemAddedCallBack;
 

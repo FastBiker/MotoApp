@@ -1,7 +1,7 @@
-﻿namespace MotoApp.DataProviders;
+﻿namespace MotoApp.Components.DataProviders;
 
-using MotoApp.DataProviders.Extenions;
-using MotoApp.Repositories;
+using MotoApp.Components.DataProviders.Extenions;
+using MotoApp.Data.Repositories;
 using System.Drawing;
 using System.Text;
 
@@ -25,7 +25,7 @@ public class CarsProvider : ICarsProvider
     public decimal GetMinimumPriceOfAllCars()
     {
         var cars = _carsRepository.GetAll();
-        return cars.Select(x =>x.ListPrice).Min();
+        return cars.Select(x => x.ListPrice).Min();
     }
 
     public List<Car> GetSpecificColumns()
@@ -98,7 +98,7 @@ public class CarsProvider : ICarsProvider
     public List<Car> WhereStartsWith(string prefix)
     {
         var cars = _carsRepository.GetAll();
-        return cars.Where(x=>x.Name.StartsWith(prefix)).ToList();
+        return cars.Where(x => x.Name.StartsWith(prefix)).ToList();
     }
 
     public List<Car> WhereStartsWithAndCostIsGreaterThan(string prefix, decimal cost)
@@ -134,7 +134,7 @@ public class CarsProvider : ICarsProvider
     }
 
     public Car LastByColor(string color)
-    { 
+    {
         var cars = _carsRepository.GetAll();
         return cars.Last(x => x.Color == color);
     }

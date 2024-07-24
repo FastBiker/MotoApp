@@ -1,10 +1,11 @@
-﻿using MotoApp.Entities;
+﻿using MotoApp.Data.Entities;
+using MotoApp.Data.Repositories;
 
-namespace MotoApp.Repositories.Extensions;
+namespace MotoApp.Data.Repositories.Extensions;
 
 public static class RepositoryExtensions
 {
-    public static void AddBatch<T>(this IRepository<T> repository, T[] items) 
+    public static void AddBatch<T>(this IRepository<T> repository, T[] items)
         where T : class, IEntity
     {
         foreach (var item in items)

@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using MotoApp.Entities;
+using MotoApp.Data.Entities;
 
 public class Car : EntityBase
 {
