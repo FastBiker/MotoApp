@@ -1,4 +1,8 @@
-﻿namespace MotoApp.Components.DataProviders.Extenions;
+﻿using MotoApp.Data.Entities;
+
+namespace MotoApp.Components.DataProviders.Extenions;
+
+
 
 public static class CarsHelper
 {

@@ -1,9 +1,10 @@
 ﻿namespace MotoApp.Components.DataProviders;
 
-using MotoApp.Components.DataProviders.Extenions;
 using MotoApp.Data.Repositories;
+using MotoApp.Data.Entities;
 using System.Drawing;
 using System.Text;
+using MotoApp.Components.DataProviders.Extenions;
 
 public class CarsProvider : ICarsProvider
 {

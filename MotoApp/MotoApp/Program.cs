@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MotoApp;
+using MotoApp.Components.CsvReader;
 using MotoApp.Components.DataProviders;
 using MotoApp.Data.Entities;
 using MotoApp.Data.Repositories;
@@ -9,6 +10,7 @@ sercices.AddSingleton<IApp, App>();
 sercices.AddSingleton<IRepository<Employee>, ListRepository<Employee>>();
 sercices.AddSingleton<IRepository<Car>, ListRepository<Car>>();
 sercices.AddSingleton<ICarsProvider, CarsProvider>();
+sercices.AddSingleton<ICsvReader, CsvReader>();
 
 var serviceProvider = sercices.BuildServiceProvider();
 var app = serviceProvider.GetService<IApp>()!;

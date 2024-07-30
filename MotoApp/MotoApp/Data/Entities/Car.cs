@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using MotoApp.Data.Entities;
+namespace MotoApp.Data.Entities;
 
 public class Car : EntityBase
 {
@@ -18,23 +18,23 @@ public class Car : EntityBase
 
     public decimal? TotalSales { get; set; }
 
-    #region ToString Override
-    public override string ToString()
-    {
-        StringBuilder sb = new(1024);
+        #region ToString Override
+        public override string ToString()
+        {
+            StringBuilder sb = new(1024);
 
-        sb.Append($"{Name} ID: {Id}\n");
-        sb.Append($" Color: {Color} Type: {(Type ?? "n/a")}\n");
-        sb.Append($" Cost: {StandardCost:c} Price: {ListPrice:c}\n" );
-        if (NameLength.HasValue) 
-        {
-            sb.AppendLine($" Name Lenght: {NameLength}");
+            sb.Append($"{Name} ID: {Id}\n");
+            sb.Append($" Color: {Color} Type: {(Type ?? "n/a")}\n");
+            sb.Append($" Cost: {StandardCost:c} Price: {ListPrice:c}\n" );
+            if (NameLength.HasValue) 
+            {
+                sb.AppendLine($" Name Lenght: {NameLength}");
+            }
+            if (TotalSales.HasValue)
+            {
+                sb.AppendLine($" Total Sales: {TotalSales:c}");
+            }
+            return sb.ToString();
         }
-        if (TotalSales.HasValue)
-        {
-            sb.AppendLine($" Total Sales: {TotalSales:c}");
-        }
-        return sb.ToString();
     }
-}
-#endregion
+    #endregion

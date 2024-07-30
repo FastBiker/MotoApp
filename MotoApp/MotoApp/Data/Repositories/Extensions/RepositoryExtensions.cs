@@ -1,5 +1,4 @@
 ﻿using MotoApp.Data.Entities;
-using MotoApp.Data.Repositories;
 
 namespace MotoApp.Data.Repositories.Extensions;
 
