@@ -1,4 +1,5 @@
 ﻿using MotoApp.Components.CsvReader;
+using MotoApp.Components.CsvReader.Models;
 using System.Text.RegularExpressions;
 
 namespace MotoApp;
@@ -35,23 +36,25 @@ public class App : IApp
 
         var carsInCountry = cars.Join(
             manufacturers,
-            x => x.Manufacture,
-            x => x.Name,
+            c => new { c.Manufacturer, c.Year },
+            m => new { Manufacturer = m.Name, m.Year },
             (car, manufacturer) =>
                  new
                  {
                      manufacturer.Country,
-                     car.Manufacture,
-                     car.Combined
+                     manufacturer.Year,
+                     car.Manufacturer,
+                     car.Displacement
                  })
-            .OrderByDescending(x => x.Combined)
-            .ThenBy(x => x.Manufacture);
+            .OrderByDescending(x => x.Displacement)
+            .ThenBy(x => x.Manufacturer);
 
         foreach (var car in carsInCountry)
         {
             Console.WriteLine($"Country: {car.Country}");
-            Console.WriteLine($"\t Name: {car.Manufacture}");
-            Console.WriteLine($"\t Combined: {car.Combined}");
+            Console.WriteLine($"\t Name: {car.Manufacturer}");
+            Console.WriteLine($"\t Displacement: {car.Displacement}");
+            Console.WriteLine($"\t Year: {car.Year}");
         }
     }
 }

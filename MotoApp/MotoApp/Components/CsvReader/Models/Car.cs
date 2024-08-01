@@ -3,7 +3,7 @@
 public class Car
 {
     public int Year { get; set; } // rok produkcji
-    public string Manufacture {  get; set; } // marka
+    public string Manufacturer {  get; set; } // marka
     public string Name { get; set; } // model
     public double Displacement { get; set; } // pojemność skokowa
     public int Cylinders { get; set; } // ilość cylindrów

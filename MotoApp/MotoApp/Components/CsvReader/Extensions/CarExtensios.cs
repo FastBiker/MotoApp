@@ -14,7 +14,7 @@ public static class CarExtensios
             yield return new Car
             {
                 Year = int.Parse(columns[0]),
-                Manufacture = columns[1],
+                Manufacturer = columns[1],
                 Name = columns[2],
                 Displacement = double.Parse(columns[3], CultureInfo.InvariantCulture),
                 Cylinders = int.Parse(columns[4]),
