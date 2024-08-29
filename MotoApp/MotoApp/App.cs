@@ -20,125 +20,9 @@ public class App : IApp
 
     public void Run()
     {
-        Console.WriteLine("Pogrupowanie danych z pliku 'fuel.csv'");
-        Console.WriteLine("-------------------------------------------");
-
-        var cars = _csvReader.ProcessCars("Resourses\\Files\\fuel.csv");
-        var manufacturers = _csvReader.ProcessManufacturers("Resourses\\Files\\manufacturers.csv");
-
-        var groups = cars
-            .GroupBy(x => new { x.Manufacturer, x.Displacement })
-            //.Select(g => new
-            //{
-            //    Name = g.Key,
-
-            //})
-            .OrderBy(x => x.Key.Manufacturer)
-            .ThenBy(x => x.Key.Displacement);
-
-        foreach (var group in groups)
-        {
-            Console.WriteLine($"{group.Key.Manufacturer}, {group.Key.Displacement}");
-            Console.WriteLine($"\t MaxDisplacement: {group.Max(x => x.Displacement)}");
-
-            foreach (var element in group)
-                {
-                Console.WriteLine($"\t {element.Name} / {element.Displacement} / {element.Cylinders} / {element.Combined}");
-                }
-            //Console.WriteLine($"\t CombinedSum: {group.Sum}");
-            //Console.WriteLine($"\t CombinedAverage: {group.Average}");
-            //Console.WriteLine($"\t MaxDisplacement: {group.Max}");
-            //Console.WriteLine($"\t MinDisplacement: {group.Min}");
-            Console.WriteLine();
-
-        }
-
-        JoinCars();
         CreateXml();
-
         QueryXml();
     }
-
-
-    private void JoinCars()
-    {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("Połączenie 2 plików CSV i pogrupowanie danych");
-        Console.WriteLine("----------------------------------------------");
-        Console.ResetColor();
-        Console.WriteLine();
-
-        var cars = _csvReader.ProcessCars("Resourses\\Files\\fuel.csv");
-        var manufacturers = _csvReader.ProcessManufacturers("Resourses\\Files\\manufacturers.csv");
-
-        int CombinedSum = cars.Sum(x => x.Combined);
-
-        var groups = manufacturers
-            .GroupJoin(cars,
-            manufacturer => manufacturer.Name,
-            car => car.Manufacturer,
-            (m, g) =>
-                new
-                {
-                    m.Name,
-                    Cars = g
-                })
-            .OrderBy(x => x.Name);
-
-        foreach (var element in groups)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Manufacturer: {element.Name.ToUpper()}");
-            Console.WriteLine("-------------------------");
-            //Console.ResetColor();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\t Count: {element.Cars.Count()}");
-            Console.WriteLine($"\t Max: {element.Cars.Max(x => x.Displacement)}");
-            Console.WriteLine($"\t Min: {element.Cars.Min(x => x.Displacement)}");
-            Console.WriteLine($"\t Average: {element.Cars.Average(x => x.Displacement)}");
-            Console.WriteLine();
-
-            foreach (var car in element.Cars) 
-            {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine($"\t {car.Name} / {car.Displacement} / {car.Cylinders} / {car.Combined}");
-                Console.WriteLine();
-                Console.ResetColor ();
-            }
-
-        }
-
-        Console.WriteLine("Połączenie 2 plików CSV, następnie pogrupowanie");
-        Console.WriteLine("-------------------------------------------");
-
-        var carsInCountry = cars.Join(
-            manufacturers,
-            x => x.Manufacturer,
-            x => x.Name,
-            (car, manufacturer) =>
-                 new
-                 {
-                     manufacturer.Country,
-                     car.Manufacturer,
-                     car.Name,
-                     car.Combined,
-                     car.Cylinders,
-                     car.Displacement
-                 })
-            .OrderByDescending(x => x.Combined)
-            .ThenBy(x => x.Manufacturer);
-
-        foreach (var car in carsInCountry)
-        {
-            Console.WriteLine($"Country: {car.Country}");
-            Console.WriteLine($"\t Manufacturer: {car.Manufacturer}");
-            Console.WriteLine($"\t Name: {car.Name}");
-            Console.WriteLine($"\t Combined: {car.Combined}");
-            Console.WriteLine();
-
-        }
-    }
-
     private void QueryXml()
     {
         Console.WriteLine("Odczyt z pliku 'fuel.xml");
@@ -203,7 +87,8 @@ public class App : IApp
                                 ))));
 
             document.Add(cars);
-            document.Save("fuel.xml");
+            
         }
+        document.Save("fuel.xml");
     }
 }
