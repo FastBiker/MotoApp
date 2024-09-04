@@ -31,16 +31,23 @@ public class App : IApp
 
         var document = XDocument.Load("fuel.xml");
         var names = document
-            .Element("Cars")?
-            .Elements("Car")
-            .Where(x => x.Attribute("Model")?.Value == "X3 xDrive28d")
-            .Select(x => x.Attribute("Combined")?.Value)
+            .Element("Manufacturers")?
+            .Elements("Car")?
+            .Where(x => x.Attribute("Combined")?.Value == "22")
+            .Select(x => x.Attribute("Model")?.Value)
             .Distinct()
             .OrderDescending();
 
-        foreach (var name in names)
+        if (names != null ) 
         {
-            Console.WriteLine(name);
+            foreach (var name in names)
+            {
+                Console.WriteLine(name);
+            }
+        }
+        else 
+        {
+            Console.WriteLine("Nie ma takiego samochodu");
         }
 
     }
@@ -53,9 +60,9 @@ public class App : IApp
         var recordsCars = _csvReader.ProcessCars("Resourses\\Files\\fuel.csv");
         var recordsManufacturers = _csvReader.ProcessManufacturers("Resourses\\Files\\manufacturers.csv");
 
-        var document = new XDocument();
+        var document = new XDocument(new XElement("Manufacturers"));
 
-        var carsAllInformation = recordsManufacturers
+        var carsAllInformations = recordsManufacturers
             .GroupJoin(
             recordsCars,
             manufacturer => manufacturer.Name,
@@ -69,26 +76,22 @@ public class App : IApp
             })
             .OrderBy(x => x.Name);
 
-        foreach (var element in carsAllInformation)
+        foreach (var element in carsAllInformations)
         {
-            var cars = new XElement("Manufacuturers", carsAllInformation
-                .Select(element =>
-                new XElement("Manufacturer",
+                var manufacturerElements = new XElement("Manufacturer",
                     new XAttribute("Name", element.Name),
                     new XAttribute("Country", element.Country),
                         new XElement("Cars",
                             new XAttribute("Country", element.Country),
                             new XAttribute("CombinedSum", element.Cars.Sum(x => x.Combined)),
-                            from car in element.Cars
-                            select
+                            element.Cars.Select(car => 
                                 new XElement("Car",
                                     new XAttribute("Model", car.Name),
                                     new XAttribute("Combined", car.Combined))
-                                ))));
+                                )));
 
-            document.Add(cars);
-            
-        }
+            document.Root.Add(manufacturerElements);
+        } 
         document.Save("fuel.xml");
     }
 }
