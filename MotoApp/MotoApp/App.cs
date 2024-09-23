@@ -23,7 +23,7 @@ public class App : IApp
         //ReadAllCarsFromDb();
         //ReadGroupedCarsFromDb();
 
-        var cayman = this.ReadFirst("Cayman");
+        var cayman = this.ReadFirst("Misie Gumisie");
         if(cayman == null) 
         {
             Console.WriteLine("This name dosen't exist");
@@ -31,7 +31,7 @@ public class App : IApp
         }
         else 
         {
-            cayman.Name = "Misie Gumisie" ;
+            _motoAppDbContext.Cars.Remove(cayman);
             _motoAppDbContext.SaveChanges();
         }
     }
