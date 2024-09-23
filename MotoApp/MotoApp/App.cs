@@ -21,19 +21,19 @@ public class App : IApp
     {
         //InsertData();
         //ReadAllCarsFromDb();
-        //ReadGroupedCarsFromDb();
+        ReadGroupedCarsFromDb();
 
-        var cayman = this.ReadFirst("Misie Gumisie");
-        if(cayman == null) 
-        {
-            Console.WriteLine("This name dosen't exist");
-            return;
-        }
-        else 
-        {
-            _motoAppDbContext.Cars.Remove(cayman);
-            _motoAppDbContext.SaveChanges();
-        }
+        //var cayman = this.ReadFirst("Misie Gumisie");
+        //if(cayman == null) 
+        //{
+        //    Console.WriteLine("This name dosen't exist");
+        //    return;
+        //}
+        //else 
+        //{
+        //    _motoAppDbContext.Cars.Remove(cayman);
+        //    _motoAppDbContext.SaveChanges();
+        //}
     }
 
     private Car? ReadFirst(string name) 
