@@ -1,97 +1,100 @@
 ﻿namespace MotoApp;
 
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MotoApp.Components.CsvReader;
-using MotoApp.Components.CsvReader.Models;
+using MotoApp.Data;
 using MotoApp.Data.Entities;
-using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
 using System.Xml.Linq;
-
 
 public class App : IApp
 {
     private readonly ICsvReader _csvReader;
-    public App(ICsvReader csvReader)
+    private readonly MotoAppDbContext _motoAppDbContext;
+
+    public App(ICsvReader csvReader, MotoAppDbContext motoAppDbContext)
     {
         _csvReader = csvReader;
+        _motoAppDbContext = motoAppDbContext;
+        _motoAppDbContext.Database.EnsureCreated();
     }
 
     public void Run()
     {
-        CreateXml();
-        QueryXml();
-    }
-    private void QueryXml()
-    {
-        Console.WriteLine("Odczyt z pliku 'fuel.xml");
-        Console.WriteLine("--------------------------");
-        Console.WriteLine();
+        //InsertData();
+        //ReadAllCarsFromDb();
+        //ReadGroupedCarsFromDb();
 
-        var document = XDocument.Load("fuel.xml");
-        var names = document
-            .Element("Manufacturers")?
-            .Elements("Car")?
-            .Where(x => x.Attribute("Combined")?.Value == "22")
-            .Select(x => x.Attribute("Model")?.Value)
-            .Distinct()
-            .OrderDescending();
-
-        if (names != null ) 
+        var cayman = this.ReadFirst("Cayman");
+        if(cayman == null) 
         {
-            foreach (var name in names)
-            {
-                Console.WriteLine(name);
-            }
+            Console.WriteLine("This name dosen't exist");
+            return;
         }
         else 
         {
-            Console.WriteLine("Nie ma takiego samochodu");
+            cayman.Name = "Misie Gumisie" ;
+            _motoAppDbContext.SaveChanges();
         }
-
     }
 
-    private void CreateXml()
+    private Car? ReadFirst(string name) 
     {
-        Console.WriteLine("Połączenie 2 plików CSV i zapisanie ich w pliku xml");
-        Console.WriteLine("-------------------------------------------");
+        return _motoAppDbContext.Cars.FirstOrDefault(x => x.Name == name);
+    }
 
-        var recordsCars = _csvReader.ProcessCars("Resourses\\Files\\fuel.csv");
-        var recordsManufacturers = _csvReader.ProcessManufacturers("Resourses\\Files\\manufacturers.csv");
-
-        var document = new XDocument(new XElement("Manufacturers"));
-
-        var carsAllInformations = recordsManufacturers
-            .GroupJoin(
-            recordsCars,
-            manufacturer => manufacturer.Name,
-            car => car.Manufacturer,
-            (m, g) =>
-            new
+    private void ReadGroupedCarsFromDb()
+    {
+        var groups = _motoAppDbContext
+            .Cars
+            .GroupBy (x => x.Manufacturer)
+            .Select (x => new
             {
-                m.Name,
-                m.Country,
-                Cars = g
+                Name = x.Key,
+                Cars = x.ToList()
             })
-            .OrderBy(x => x.Name);
+            .ToList();
 
-        foreach (var element in carsAllInformations)
+        foreach (var group in groups) 
         {
-                var manufacturerElements = new XElement("Manufacturer",
-                    new XAttribute("Name", element.Name),
-                    new XAttribute("Country", element.Country),
-                        new XElement("Cars",
-                            new XAttribute("Country", element.Country),
-                            new XAttribute("CombinedSum", element.Cars.Sum(x => x.Combined)),
-                            element.Cars.Select(car => 
-                                new XElement("Car",
-                                    new XAttribute("Model", car.Name),
-                                    new XAttribute("Combined", car.Combined))
-                                )));
+            Console.WriteLine(group.Name);
+            Console.WriteLine("============");
 
-            document.Root.Add(manufacturerElements);
-        } 
-        document.Save("fuel.xml");
+            foreach (var car in group.Cars) 
+            {
+                Console.WriteLine($"\t {car.Name}: {car.Combined}");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    private void ReadAllCarsFromDb()
+    {
+        var carsFromDb = _motoAppDbContext.Cars.ToList();
+
+        foreach (var carFromDb in carsFromDb)
+        {
+            Console.WriteLine($"\t {carFromDb.Name}: {carFromDb.Combined}");
+        }
+    }
+
+    private void InsertData() 
+    {
+        var cars = _csvReader.ProcessCars("Resourses\\Files\\fuel.csv");
+
+        foreach (var car in cars)
+        {
+            _motoAppDbContext.Cars.Add(new Car()
+            {
+                Manufacturer = car.Manufacturer,
+                Name = car.Name,
+                Year = car.Year,
+                Cylinders = car.Cylinders,
+                Displacement = car.Displacement,
+                City = car.City,
+                Highway = car.Highway,
+                Combined = car.Combined,
+            });
+        }
+
+        _motoAppDbContext.SaveChanges();
     }
 }
